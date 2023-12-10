@@ -1,0 +1,340 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ dong }} 현재 공기</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/outside_result.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/key_word.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/copyright.css' %}">
+    <script>
+        function showPopup(id, text) {
+            var popup = document.getElementById(id);
+            popup.style.display = "block";
+            popup.innerHTML = text;
+        }
+        
+        function hidePopup(id,text) {
+            var popup = document.getElementById(id);
+            popup.style.display = "none";
+            popup.innerHTML = '';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <a href="{% url 'Home_page' %}"><img src="https://i.ibb.co/xf110SW/AIYA.png" class="img_logo"/></a>
+        <div class="links">
+            <a href="{% url 'outside:main' %}" class="link_text">다른 지역 살펴보기</a>
+        </div>
+        <nav>
+            <div class="nav_items">
+        </nav>
+    </header>
+    <main>
+        <p style="margin-top:-30px"></p>
+        <table class="pollutant">
+            <thead>
+                <th></th>
+                <th><span class="tooltip">PM2.5<span class="tooltip-text">PM2.5는 직경이 2.5마이크로미터 이하인 들이마실 수 있는 오염물질 입자입니다. 폐와 심장에 가장 심각각한 영향을 미칠 수 있는 오염물질입니다.</span></span></th>
+                <th><span class="tooltip">PM10<span class="tooltip-text">PM10은 직경이 10마이크로미터 이하인 들이마실 수 있는 오염물질 입자입니다. 노출되면 눈 및 목 염증, 기침 또는 호흡곤란, 천식 악화가 발생할 수 있습니다. </span></span></th>
+                <th><span class="tooltip">NO<sub>2</sub><span class="tooltip-text">이산화질소 수준이 높은 곳에서 호흡을 하면 기관지 문제가 발생할 위험이 높아집니다. 기침과 호흡곤란이 일반적이며, 장기간 노출되면 호흡기 염증 등 보다 심각한 건강 문제가 발생할 수 있습니다.</span></span></th>
+                <th><span class="tooltip">SO<sub>2</sub><span class="tooltip-text">이산화황에 노출되면 목 및 눈 염증이 발생할 수 있으며 천식과 만성 기관지염이 악화될 수 있습니다.</span></span></th>
+                <th><span class="tooltip">O<sub>3</sub><span class="tooltip-text">지표 오존은 기존 호흡기 질환을 악화시킬 수 있고 목 염증, 두통, 가슴 통증도 유발할 수 있습니다.</span></span></th>
+                <th><span class="tooltip">CO<span class="tooltip-text">일산화탄소는 무색 무취의 가스이며 많이 들이마실 경우 두통, 멀미, 어지러움, 구토가 발생할 수 있습니다. 반복적으로 장기간 노출되는 경우에 심장 질환이 발생할 수 있습니다.</span></span></th>
+            </thead>
+            <tbody class="inner">
+                <th>수치</th>
+                    <td>{{ pm25_val }}</td>
+                    <td>{{ pm10_val }}</td>
+                    <td>{{ no2_val }}</td>
+                    <td>{{ so2_val }}</td>
+                    <td>{{ o3_val }}</td>
+                    <td>{{ co_val }}</td>
+            </tbody>
+            <tbody class="inner">
+                <th>점수</th>
+                    <td>{{ pm25_score }}</td>
+                    <td>{{ pm10_score }}</td>
+                    <td>{{ no2_score }}</td>
+                    <td>{{ so2_score }}</td>
+                    <td>{{ o3_score }}</td>
+                    <td>{{ co_score }}</td>
+            </tbody>
+            <tbody class="inner">
+                <th>상태</th>
+                    <td class="{% if pm25_state == '매우 좋음' %}good-state{% elif pm25_state == '보통' %}moderate-state{% else %}other-state{% endif %}">{{ pm25_state }}</td>
+                    <td class="{% if pm10_state == '매우 좋음' %}good-state{% elif pm10_state == '보통' %}moderate-state{% else %}other-state{% endif %}">{{ pm10_state }}</td>
+                    <td class="{% if no2_state == '매우 좋음' %}good-state{% elif no2_state == '보통' %}moderate-state{% else %}other-state{% endif %}">{{ no2_state }}</td>
+                    <td class="{% if so2_state == '매우 좋음' %}good-state{% elif so2_state == '보통' %}moderate-state{% else %}other-state{% endif %}">{{ so2_state }}</td>
+                    <td class="{% if o3_state == '매우 좋음' %}good-state{% elif o3_state == '보통' %}moderate-state{% else %}other-state{% endif %}">{{ o3_state }}</td>
+                    <td class="{% if o3_state == '매우 좋음' %}good-state{% elif o3_state == '보통' %}moderate-state{% else %}other-state{% endif %}">{{ co_state }}</td>
+            </tbody>
+            <tbody class="inner">
+                <th>AQI</th>
+                <td colspan='6'> {{ AQI }} </td>
+            </tbody>
+        </table>
+        <table class="pollutant">
+            <thead>
+                <th></th>
+                <th>산책/달리기</th>
+                <th>자전거</th>
+                <th>등산</th>
+                <th>운전</th>
+            </thead>
+            <tbody class="inner">
+                <th>야외활동</th>
+                    <td class="{% if running == '나쁨' %}health1{% elif running == '보통' %}health2{% else %}health3{% endif %}">{{ running }}</td>
+                    <td class="{% if cycle == '나쁨' %}health1{% elif cycle == '보통' %}health2{% else %}health3{% endif %}">{{ cycle }}</td>
+                    <td class="{% if hiking == '나쁨' %}health1{% elif hiking == '보통' %}health2{% else %}health3{% endif %}">{{ hiking }}</td>
+                    <td class="{% if drive == '나쁨' %}health1{% elif drive == '보통' %}health2{% else %}health3{% endif %}">{{ drive }}</td>
+            </tbody>
+        </table>
+        <div class="total">
+            <p> [종합 결과] </p>
+            <a>{{ gu }} {{ dong }} 현재 공기는</a>
+            <a class="{% if AQI_state == '매우 좋음' %}good-state2{% elif AQI_state == '보통' %}moderate-state2{% else %}other-state2{% endif %}"> {{ AQI_state }}</a>
+            <a>입니다.</a>
+            <p>{{ solution }}</p>
+            {% if AQI_state == '위험' or AQI_state == '건강에 해로움' or AQI_state == '건강에 매우 해로움'%}
+                <a href="{% url 'outside:main' %}" class="other">→ 다른 지역 살펴보기</a>
+            {% endif %}
+            <p></p>
+        </div>
+        {% if AQI_state == '매우 좋음' or AQI_state == '보통' or AQI_state == '나쁨'%}
+            <div class="map_wrap">
+                <div id="map" style="width:50%;height:100%;margin: 0 auto;position:relative;overflow:hidden;"></div>
+                <ul id="category">
+                    <li id="FD6" data-order="0"> 
+                        <span class="category_bg restaurant"></span>
+                        음식점
+                    </li>       
+                    <li id="CE7" data-order="1"> 
+                        <span class="category_bg cafe"></span>
+                        카페
+                    </li>  
+                    <li id="MT1" data-order="2"> 
+                        <span class="category_bg mart"></span>
+                        대형마트
+                    </li>  
+                    <li id="CT1" data-order="3"> 
+                        <span class="category_bg culture"></span>
+                        문화시설
+                    </li>  
+                    <li id="AT4" data-order="4"> 
+                        <span class="category_bg tour"></span>
+                        관광명소
+                    </li>  
+                    <li id="PK6" data-order="5"> 
+                        <span class="category_bg parking"></span>
+                        주차장
+                    </li>      
+                </ul>
+            </div>
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e721aa6e5dae080d076dc8951b346bc&libraries=services"></script>
+            <script>
+        // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
+            var placeOverlay = new kakao.maps.CustomOverlay({zIndex:1}), 
+                contentNode = document.createElement('div'), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다 
+                markers = [], // 마커를 담을 배열입니다
+                currCategory = ''; // 현재 선택된 카테고리를 가지고 있을 변수입니다
+        
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                mapOption = {
+                    center: new kakao.maps.LatLng({{ center_latitude }}, {{ center_longitude }}), // 지도의 중심좌표
+                    level: 6 // 지도의 확대 레벨
+                };  
+        
+        // 지도를 생성합니다    
+            var map = new kakao.maps.Map(mapContainer, mapOption); 
+        
+        // 장소 검색 객체를 생성합니다
+            var ps = new kakao.maps.services.Places(map); 
+        
+        // 지도에 idle 이벤트를 등록합니다
+            kakao.maps.event.addListener(map, 'idle', searchPlaces);
+        
+        // 커스텀 오버레이의 컨텐츠 노드에 css class를 추가합니다 
+            contentNode.className = 'placeinfo_wrap';
+        
+        // 커스텀 오버레이의 컨텐츠 노드에 mousedown, touchstart 이벤트가 발생했을때
+        // 지도 객체에 이벤트가 전달되지 않도록 이벤트 핸들러로 kakao.maps.event.preventMap 메소드를 등록합니다 
+            addEventHandle(contentNode, 'mousedown', kakao.maps.event.preventMap);
+            addEventHandle(contentNode, 'touchstart', kakao.maps.event.preventMap);
+        
+        // 커스텀 오버레이 컨텐츠를 설정합니다
+            placeOverlay.setContent(contentNode);  
+        
+        // 각 카테고리에 클릭 이벤트를 등록합니다
+            addCategoryClickEvent();
+        
+        // 엘리먼트에 이벤트 핸들러를 등록하는 함수입니다
+            function addEventHandle(target, type, callback) {
+                if (target.addEventListener) {
+                    target.addEventListener(type, callback);
+                } else {
+                    target.attachEvent('on' + type, callback);
+                }
+            }
+        
+        // 카테고리 검색을 요청하는 함수입니다
+            function searchPlaces() {
+                if (!currCategory) {
+                    return;
+                }
+            
+            // 커스텀 오버레이를 숨깁니다 
+                placeOverlay.setMap(null);
+        
+            // 지도에 표시되고 있는 마커를 제거합니다
+                removeMarker();
+            
+                ps.categorySearch(currCategory, placesSearchCB, {useMapBounds:true}); 
+            }
+        
+        // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+            function placesSearchCB(data, status, pagination) {
+                if (status === kakao.maps.services.Status.OK) {
+        
+                // 정상적으로 검색이 완료됐으면 지도에 마커를 표출합니다
+                    displayPlaces(data);
+                } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+                // 검색결과가 없는경우 해야할 처리가 있다면 이곳에 작성해 주세요
+        
+                } else if (status === kakao.maps.services.Status.ERROR) {
+                // 에러로 인해 검색결과가 나오지 않은 경우 해야할 처리가 있다면 이곳에 작성해 주세요
+                
+                }
+            }
+        
+        // 지도에 마커를 표출하는 함수입니다
+            function displayPlaces(places) {
+        
+            // 몇번째 카테고리가 선택되어 있는지 얻어옵니다
+            // 이 순서는 스프라이트 이미지에서의 위치를 계산하는데 사용됩니다
+                var order = document.getElementById(currCategory).getAttribute('data-order');
+        
+            
+        
+                for ( var i=0; i<places.length; i++ ) {
+        
+                    // 마커를 생성하고 지도에 표시합니다
+                        var marker = addMarker(new kakao.maps.LatLng(places[i].y, places[i].x), order);
+        
+                    // 마커와 검색결과 항목을 클릭 했을 때
+                    // 장소정보를 표출하도록 클릭 이벤트를 등록합니다
+                        (function(marker, place) {
+                            kakao.maps.event.addListener(marker, 'click', function() {
+                                displayPlaceInfo(place);
+                            });
+                        })(marker, places[i]);
+                }
+            }
+        
+        // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
+            function addMarker(position, order) {
+                var imageSrc = 'https://i.ibb.co/NtP73TG/Result-resized.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+                    imageSize = new kakao.maps.Size(32, 32),  // 마커 이미지의 크기
+                    imgOptions =  {
+                        spriteSize : new kakao.maps.Size(32, 192), // 스프라이트 이미지의 크기
+                        spriteOrigin : new kakao.maps.Point(0, (order*32)), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+                        offset: new kakao.maps.Point(0, 0) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+                    },
+                    markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+                        marker = new kakao.maps.Marker({
+                        position: position, // 마커의 위치
+                        image: markerImage 
+                    });
+        
+                marker.setMap(map); // 지도 위에 마커를 표출합니다
+                markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+        
+                return marker;
+            }
+        
+        // 지도 위에 표시되고 있는 마커를 모두 제거합니다
+            function removeMarker() {
+                for ( var i = 0; i < markers.length; i++ ) {
+                    markers[i].setMap(null);
+                }   
+                markers = [];
+            }
+        
+        // 클릭한 마커에 대한 장소 상세정보를 커스텀 오버레이로 표시하는 함수입니다
+            function displayPlaceInfo (place) {
+                var content = '<div class="placeinfo">' +
+                                '   <a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a>';   
+        
+                if (place.road_address_name) {
+                    content += '    <span title="' + place.road_address_name + '">' + place.road_address_name + '</span>' +
+                                '  <span class="jibun" title="' + place.address_name + '">(지번 : ' + place.address_name + ')</span>';
+                }   
+                else {
+                    content += '    <span title="' + place.address_name + '">' + place.address_name + '</span>';
+                }                
+
+                content += '    <span class="tel">' + place.phone + '</span>' + 
+                            '</div>' + 
+                            '<div class="after"></div>';
+        
+                contentNode.innerHTML = content;
+                placeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
+                placeOverlay.setMap(map);  
+            }
+        
+        
+        // 각 카테고리에 클릭 이벤트를 등록합니다
+            function addCategoryClickEvent() {
+                var category = document.getElementById('category'),
+                    children = category.children;
+        
+                for (var i=0; i < children.length; i++) {
+                    children[i].onclick = onClickCategory;
+                }
+            }
+        
+        // 카테고리를 클릭했을 때 호출되는 함수입니다
+            function onClickCategory() {
+                var id = this.id,
+                    className = this.className;
+        
+                placeOverlay.setMap(null);
+        
+                if (className === 'on') {
+                    currCategory = '';
+                    changeCategoryClass();
+                    removeMarker();
+                } else {
+                    currCategory = id;
+                    changeCategoryClass(this);
+                    searchPlaces();
+                }
+            }
+        
+        // 클릭된 카테고리에만 클릭된 스타일을 적용하는 함수입니다
+            function changeCategoryClass(el) {
+                var category = document.getElementById('category'),
+                    children = category.children,
+                    i;
+        
+                for ( i=0; i<children.length; i++ ) {
+                    children[i].className = '';
+                }
+        
+                if (el) {
+                    el.className = 'on';
+                } 
+            } 
+        </script>
+        {% endif %}
+        </div>
+        <div class="copy-right">
+            <span><a href="#none">Copyright © 2023 AIYA</a></span>
+            <br>
+            <span><a href="#none">By Mellong</a></span>
+        </main>  
+    </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+a {
+    text-decoration: none;
+    color: #222;
+}
+.copy-right {
+    text-align: right;
+    font-size: 12px;
+    position: fixed;
+    bottom: 1%;
+    right: 20px;
+}

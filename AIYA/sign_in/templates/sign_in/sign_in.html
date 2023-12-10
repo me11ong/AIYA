@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AIYA</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/sign_in.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/copyright.css' %}">
+    </head>
+    <body>
+        <header>
+            <a href="{% url 'Home_page' %}"><img src="https://i.ibb.co/xf110SW/AIYA.png" class="img_logo"/></a>
+            <div class="links">
+                <a href="{% url 'sign_up:sign_up' %}" class="link_text">회원가입</a>
+            </div>
+            <nav>
+                <div class="nav_items">
+            </nav>
+        </header>
+    <main class="member">
+        <!-- 2. 필드 -->
+        <div class="field">
+            <b>아이디</b>
+            <span class="placehold-text"><input type="text"></span>
+        </div>
+        <div class="field">
+            <b>비밀번호</b>
+            <input class="userpw" type="password">
+        </div>
+        <!-- 6. 로그인 버튼 -->
+        <input type="submit" value="로그인">
+    </main>
+    <footer>
+        <div class="copy-right">
+            <span><a href="#none">Copyright © 2023 AIYA</a></span>
+            <br>
+            <span><a href="#none">By Mellong</a></span>  
+        </div>
+    </footer>
+    </body>
+</html>

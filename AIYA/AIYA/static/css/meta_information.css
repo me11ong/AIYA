@@ -1,0 +1,64 @@
+@font-face {
+    font-family: 'my _font';
+    src: url('./font.ttf') format('truetype');
+  }
+  
+.board {
+    width: 60%; /* 박스의 너비 */
+    height: auto; /* 박스의 높이를 자동으로 조절 */
+    background-color: rgba(144, 186, 245, 0.7);;
+    border-radius: 10px; /* 박스의 모서리를 둥글게 만듦 */
+    margin-top: -2%; /* 박스의 외부 여백 */
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    padding-bottom: 3%;
+    
+}
+.board img {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+}
+.board > p.title {
+    
+    text-align: left;
+    font-size: 250%;
+    font-family: 'my _font';
+    font-weight: bold;
+    padding-top: -1%;
+    padding-left: 3%;
+    padding-right: 3%;
+
+}
+.board > p.text {
+    
+    text-align: left;
+    margin-top: -1%;
+    font-size: 125%;
+    font-family: 'my _font';
+    padding-left: 3%;
+    padding-right: 3%;
+    
+}
+.board > p.meta {
+    
+    text-align: left;
+    font-weight: bold;
+    font-size: 185%;
+    font-family: 'my _font';
+    padding-top: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
+    
+}
+.board > a.go {
+    position: absolute;
+    font-family: 'my _font';
+    color:rgb(53, 94, 255);
+    bottom: 0;
+    right: 0;
+    padding-right: 15px;
+    font-size: 150%;
+    text-decoration: underline;
+}

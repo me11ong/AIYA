@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AIYA</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/inoutside.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/copyright.css' %}">
+    </head>
+    <body>
+        <header>
+            <a href="{% url 'Home_page' %}"><img src="https://i.ibb.co/xf110SW/AIYA.png" class="img_logo"/></a>
+            <div class="links">
+                <a href="{% url 'sign_in:sign_in' %}" class="link_text">로그인</a>
+                <a href="/" class="link_text">|</a>
+                <a href="{% url 'sign_up:sign_up' %}" class="link_text">회원가입</a>
+            </div>
+            <nav>
+                <div class="nav_items">
+            </nav>
+        </header>
+    <main>
+        <div class = "inside">
+            <img src="https://i.ibb.co/LkCzTrf/mbrihome-99524.png" alt="AIYA logo">
+            <a href="{% url 'inside:main' %}" class="inside-text">실내 공기 살펴보기</span></a>
+        </div>
+        </div>
+        <div class = "outside">
+            <img src="https://i.ibb.co/fHH8gFn/sunny-day-symbol-outline-with-triangular-mountains-icon-icons-com-74075.png" alt="AIYA logo">
+            <a href="{% url 'outside:main' %}">실외 공기 살펴보기</a>
+        </div>
+    </main>
+        <div class="copy-right">
+            <span><a href="#none">Copyright © 2023 AIYA</a></span>
+            <br>
+            <span><a href="#none">By Mellong</a></span>  
+        </div>
+    </body>
+</html>

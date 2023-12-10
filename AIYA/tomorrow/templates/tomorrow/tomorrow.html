@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AIYA</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/inoutside.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/copyright.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/cloud_animation.css' %}">
+    </head>
+    <body>
+        <header>
+            <a href="{% url 'Home_page' %}"><img src="https://i.ibb.co/xf110SW/AIYA.png" class="img_logo"/></a>
+            <div class="links">
+                <a href="{% url 'sign_in:sign_in' %}" class="link_text"></a>
+            </div>
+            <nav>
+                <div class="nav_items">
+            </nav>
+        </header>
+    <main>
+    </main>
+        <div class="copy-right">
+            <span><a href="#none">Copyright © 2023 AIYA</a></span>
+            <br>
+            <span><a href="#none">By Mellong</a></span>  
+        </div>
+    </body>
+</html>

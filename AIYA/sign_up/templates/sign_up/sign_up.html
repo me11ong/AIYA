@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AIYA</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/sign_up.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/copyright.css' %}">
+        <script src="{% static 'js/gudong.js' %}"></script>
+    </head>
+    <body>
+        <header>
+            <a href="{% url 'Home_page' %}"><img src="https://i.ibb.co/xf110SW/AIYA.png" class="img_logo"/></a>
+            <div class="links">
+                <a href="{% url 'sign_in:sign_in' %}" class="link_text">로그인</a>
+            </div>
+            <nav>
+                <div class="nav_items">
+            </nav>
+        </header>
+        <main class="member">
+            <!-- 1. 폼 엘리먼트 추가 -->
+            <form method="post" action="{% url 'sign_up:sign_up' %}">
+                {% csrf_token %}
+                <!-- 2. 필드 -->
+                <div class="field">
+                    <b>아이디</b>
+                    <span class="placehold-text"><input type="text" name="username"></span>
+                </div>
+                <div class="field">
+                    <b>비밀번호</b>
+                    <input class="userpw" type="password" name="password">
+                </div>
+                <div class="field">
+                    <b>비밀번호 재확인</b>
+                    <input class="userpw-confirm" type="password" name="re-password">
+                </div>
+        
+                <!-- 3. 필드(생년월일) -->
+                <div class="field birth">
+                    <b>거주지역</b>
+                    <div>
+                        <select name="city">
+                            <option value="">-선택(시/도)-</option>
+                            <option value="서울특별시">서울특별시</option>
+                        </select>
+                        <select name="gu" id="guSelect">
+                            <option value="">-선택(구)-</option>
+                            {% for name in gu %}
+                                <option value="{{ name }}">{{ name }}</option>
+                                
+                            {% endfor %}
+                        </select>
+                        <select name="dong" id="dongSelect">
+                            <option value="">-선택(동)-</option>
+                            {% for name in dong %}
+                                <option value="{{ name }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <!-- 4. 제출 버튼 -->
+                <input type="submit" value="가입하기">
+            </form>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </main>
+        
+    <div class="copy-right">
+            <span><a href="#none">Copyright © 2023 AIYA</a></span>
+            <br>
+            <span><a href="#none">By Mellong</a></span>  
+    </div>
+</body>
+</html>

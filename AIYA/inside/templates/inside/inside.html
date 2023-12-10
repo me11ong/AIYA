@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AIYA</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/meta_information.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/copyright.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/cloud_animation.css' %}">
+    </head>
+    <body>
+        <header>
+            <a href="{% url 'Home_page' %}"><img src="https://i.ibb.co/xf110SW/AIYA.png" class="img_logo"/></a>
+            <div class="links">
+                <a href="{% url 'sign_in:sign_in' %}" class="link_text"></a>
+            </div>
+            <nav>
+                <div class="nav_items">
+            </nav>
+        </header>
+    <main>
+        <div class="board">
+            <p class="title">"실내 공기 살펴보기" 기능</p> 
+            <p class="text"> AIYA의 '실내 공기 살펴보기'는 지난 24시간의 공기질 데이터를 바탕으로 한시간 후의 미세먼지 농도를 예측합니다. 인공지능 기술인 메타러닝 모델로 예측값을 도출해냅니다.메타러닝 모델에 학습에는 도서관, 중학교, 초등학교, 체육시설의 데이터가 사용되었으므로 해당 장소에 적용될 경우 보다 높은 정확도를 보일 수 있습니다.</p>
+            
+            <p class="meta">💡메타러닝이란?</p>
+            <p class="text" style='padding-bottom:1%;'> 메타러닝은 딥러닝과 차별화된 인공지능 기술로, 데이터 자체의 메타 특징을 분석한 후 가장 적합한 딥러닝 모델을 채택하여 최종 예측값을 도출합니다. 기존의 딥러닝 모델보다 새로운 지역과 공간에서도 정확한 결과를 낼 수 있습니다. </p>
+            <a class="go" href= "{% url 'tomorrow:forecast' %}" style='margin-bottom:1%'>🠖예측하러 가기</a>
+            
+        </div>
+    </main>
+        <div class="copy-right">
+            <span><a href="#none">Copyright © 2023 AIYA</a></span>
+            <br>
+            <span><a href="#none">By Mellong</a></span>  
+        </div>
+    </body>
+</html>

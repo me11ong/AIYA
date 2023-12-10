@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AIYA</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/outside.css' %}">        
+        <link rel="stylesheet" type="text/css" href="{% static 'css/copyright.css' %}">
+        
+    </head>
+    <body>
+        <header>
+            <a href="{% url 'Home_page' %}"><img src="https://i.ibb.co/xf110SW/AIYA.png" class="img_logo"/></a>
+            <div class="links">
+                <a href="{% url 'inside:main' %}" class="link_text">실내 공기 살펴보기</a>
+            </div>
+            <nav>
+                <div class="nav_items">
+            </nav>
+        </header>
+    <main class="member">
+        <p style="margin-top:-50px">
+            <em class="link">
+                <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=50%, height=10%')">
+                </a>
+            </em>
+        </p>
+        <div id="map" style="height:500px; margin: 0 auto; margin-top : 5%"></div>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ec26e8de815cbe0afeec1f666e8f7a9b"></script>
+        <script src="{% static 'js/map_boundary.js' %}"></script>
+        
+        <script src="{% static 'js/gudong.js' %}"></script>
+        <form method="post" action="{% url 'outside:main' %}">
+            {% csrf_token %}
+            <div class="field birth">
+                <b>살펴볼 지역</b>
+                <div>
+                    <select name="city">
+                        <option value="">-선택(시/도)-</option>
+                        <option value="서울특별시">서울특별시</option>
+                    </select>
+                    <select name="gu" id="guSelect">
+                        <option value="">-선택(구)-</option>
+                        {% for name in gu %}
+                            <option value="{{ name }}">{{ name }}</option>
+
+                        {% endfor %}
+                    </select>
+                    <select name="dong" id="dongSelect">
+                        <option value="">-선택(동)-</option>
+                        {% for name in dong %}
+                            <option value="{{ name }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                <input type="submit" value="살펴보기">
+            </div>
+        </form>
+        </div>
+            <h1>{{ pm25_val }}</h1>
+    </main>
+        <div class="copy-right">
+            <span><a href="#none">Copyright © 2023 AIYA</a></span>
+            <br>
+            <span><a href="#none">By Mellong</a></span>
+        </div>
+    </body>
+</html>
