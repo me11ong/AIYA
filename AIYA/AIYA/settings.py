@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'sign_in.apps.SignInConfig',
     'inside.apps.InsideConfig',
     'outside.apps.OutsideConfig',
-    'tomorrow.apps.TomorrowConfig',
 ]
 
 MIDDLEWARE = [

@@ -26,7 +26,6 @@ urlpatterns = [
     path('',views.home_view ,name='Home_page'),
     path('sign_in/',include('sign_in.urls')),
     path('inside/',include('inside.urls')),
-    path('tomorrow/',include('tomorrow.urls')),
     path('outside/',include('outside.urls')),
 ]
 
